@@ -5,11 +5,8 @@ import serve from 'rollup-plugin-serve';
 import typescript from '@rollup/plugin-typescript';
 
 export default {
-
     //  Our game entry point (edit as required)
-    input: [
-        './src/game.ts'
-    ],
+    input: ['./src/game.ts'],
 
     //  Where the build file is to be generated.
     //  Most games being built for distribution can use iife as the module type.
@@ -19,11 +16,10 @@ export default {
         file: './dist/game.js',
         name: 'MyGame',
         format: 'iife',
-        sourcemap: true
+        sourcemap: true,
     },
 
     plugins: [
-
         //  Toggle the booleans here to enable / disable Phaser 3 features:
         replace({
             preventAssignment: true,
@@ -33,26 +29,26 @@ export default {
             'typeof EXPERIMENTAL': JSON.stringify(true),
             'typeof PLUGIN_CAMERA3D': JSON.stringify(false),
             'typeof PLUGIN_FBINSTANT': JSON.stringify(false),
-            'typeof FEATURE_SOUND': JSON.stringify(true)
+            'typeof FEATURE_SOUND': JSON.stringify(true),
         }),
 
         //  Parse our .ts source files
         nodeResolve({
-            extensions: [ '.ts', '.tsx' ]
+            extensions: ['.ts', '.tsx'],
         }),
 
         //  We need to convert the Phaser 3 CJS modules into a format Rollup can use:
         commonjs({
             include: [
                 'node_modules/eventemitter3/**',
-                'node_modules/phaser/**'
+                'node_modules/phaser/**',
             ],
-            exclude: [ 
+            exclude: [
                 'node_modules/phaser/src/polyfills/requestAnimationFrame.js',
-                'node_modules/phaser/src/phaser-esm.js'
+                'node_modules/phaser/src/phaser-esm.js',
             ],
             sourceMap: true,
-            ignoreGlobal: true
+            ignoreGlobal: true,
         }),
 
         //  See https://github.com/rollup/plugins/tree/master/packages/typescript for config options
@@ -65,9 +61,8 @@ export default {
             host: 'localhost',
             port: 10001,
             headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        })
-
-    ]
+                'Access-Control-Allow-Origin': '*',
+            },
+        }),
+    ],
 };
