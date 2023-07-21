@@ -1,43 +1,60 @@
+'use strict';
+
 import * as Phaser from 'phaser';
 
-export default class Demo extends Phaser.Scene {
+import { Floor } from './floor';
+
+export const notBuiltTextureName = 'not_built';
+export const floorTextureName = 'floor';
+
+export default class MainScene extends Phaser.Scene {
+    private floors: Floor[] = [];
+
     constructor() {
-        super('demo');
+        super('MainScene');
     }
 
     preload() {
-        this.load.image('logo', 'assets/phaser3-logo.png');
-        this.load.image('libs', 'assets/libs.png');
-        this.load.glsl('bundle', 'assets/plasma-bundle.glsl.js');
-        this.load.glsl('stars', 'assets/starfields.glsl.js');
+        this.load.image(notBuiltTextureName, 'assets/not_built.png');
+        this.load.image(floorTextureName, 'assets/floor.png');
     }
 
     create() {
-        this.add.shader('RGB Shift Field', 0, 0, 800, 600).setOrigin(0);
+        this.scale.on('resize', this.resize, this);
+        this.cameras.main.setBackgroundColor('#d5f3fb');
+        this.cameras.main.setZoom(1);
 
-        this.add.shader('Plasma', 0, 412, 800, 172).setOrigin(0);
+        this.floors = [
+            new Floor(this),
+            new Floor(this),
+            new Floor(this),
+            new Floor(this),
+            new Floor(this),
+        ];
 
-        this.add.image(400, 300, 'libs');
-
-        const logo = this.add.image(400, 70, 'logo');
-
-        this.tweens.add({
-            targets: logo,
-            y: 350,
-            duration: 1500,
-            ease: 'Sine.inOut',
-            yoyo: true,
-            repeat: -1,
+        this.floors.forEach((floor, i) => {
+            floor.setOrigin(0.5, 1);
+            floor.setX(this.game.scale.width / 2);
+            floor.setY(this.game.scale.height - floor.height * i);
+            console.log(floor.height);
+            this.add.existing(floor);
         });
+    }
+
+    resize(size: Phaser.Structs.Size): void {
+        this.cameras.resize(size.width, size.height);
     }
 }
 
 const config = {
     type: Phaser.AUTO,
-    backgroundColor: '#125555',
-    width: 800,
-    height: 600,
-    scene: Demo,
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    scene: MainScene,
 };
 
 const game = new Phaser.Game(config);
