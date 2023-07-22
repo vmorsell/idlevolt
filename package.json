@@ -8,16 +8,8 @@
         "build": "rollup --config rollup.config.dist.mjs",
         "watch": "rollup --watch --config rollup.config.dev.mjs"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/northvolt/idlevolt.git"
-    },
-    "author": "Viktor Mörsell <viktor.morsell@northvolt.com>",
+    "author": "Viktor Mörsell <viktor.morsell@upper.st>",
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/northvolt/idlevolt/issues"
-    },
-    "homepage": "https://github.com/northvolt/idlevolt#readme",
     "devDependencies": {
         "@rollup/plugin-commonjs": "^24.0.1",
         "@rollup/plugin-node-resolve": "^15.0.2",
