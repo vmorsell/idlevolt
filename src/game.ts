@@ -5,8 +5,8 @@ import * as Phaser from 'phaser';
 import { Floor } from './floor';
 
 export enum InteriorTexture {
-  Slurry = 'slurry',
-  Coating = 'coating',
+    Slurry = 'slurry',
+    Coating = 'coating',
 }
 
 export const notBuiltTextureName = 'not_built';
@@ -24,6 +24,11 @@ export default class MainScene extends Phaser.Scene {
         this.load.image(floorTextureName, 'assets/floor.png');
         this.load.image(InteriorTexture.Slurry, 'assets/slurry.png');
         this.load.image(InteriorTexture.Coating, 'assets/coating.png');
+        this.load.atlas(
+            'operator_clean_ppe',
+            'assets/operator_clean_ppe.png',
+            'assets/operator_clean_ppe.json'
+        );
     }
 
     create() {

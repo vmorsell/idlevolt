@@ -1,0 +1,59 @@
+{
+    "frames": [
+        {
+            "filename": "front",
+            "frame": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "sourceSize": { "w": 30, "h": 63 }
+        },
+        {
+            "filename": "right_00",
+            "frame": { "x": 30, "y": 0, "w": 30, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "sourceSize": { "w": 30, "h": 63 }
+        },
+        {
+            "filename": "right_01",
+            "frame": { "x": 60, "y": 0, "w": 30, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "sourceSize": { "w": 30, "h": 63 }
+        },
+        {
+            "filename": "left_00",
+            "frame": { "x": 90, "y": 0, "w": 30, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "sourceSize": { "w": 30, "h": 63 }
+        },
+        {
+            "filename": "left_01",
+            "frame": { "x": 120, "y": 0, "w": 30, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "sourceSize": { "w": 30, "h": 63 }
+        },
+        {
+            "filename": "back",
+            "frame": { "x": 150, "y": 0, "w": 30, "h": 63 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 30, "h": 63 },
+            "sourceSize": { "w": 30, "h": 63 }
+        }
+    ],
+    "meta": {
+        "app": "https://www.leshylabs.com/apps/sstool/",
+        "version": "Leshy SpriteSheet Tool v0.8.4",
+        "image": "spritesheet.png",
+        "size": { "w": 180, "h": 63 },
+        "scale": 1
+    }
+}

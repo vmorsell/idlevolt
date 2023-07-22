@@ -3,6 +3,7 @@
 import * as Phaser from 'phaser';
 
 import { notBuiltTextureName, floorTextureName, InteriorTexture } from './game';
+import Operator from './operator';
 
 export class Floor extends Phaser.GameObjects.Container {
     private floor: Phaser.GameObjects.Image;
@@ -40,6 +41,14 @@ export class Floor extends Phaser.GameObjects.Container {
             this.interiorTexture
         );
         interior.setOrigin(0, 0);
-        this.add(interior);
+
+        const operator = new Operator(
+            this.scene,
+            -this.width / 2 + 150,
+            this.height / 2
+        );
+        operator.setOrigin(0, 1);
+
+        this.add([interior, operator]);
     }
 }
