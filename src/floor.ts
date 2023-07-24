@@ -2,40 +2,50 @@
 
 import * as Phaser from 'phaser';
 
-import { notBuiltTextureName, floorTextureName, InteriorTexture } from './game';
+import {
+    notBuiltTextureName,
+    floorTextureName,
+    InteriorTexture,
+} from './main_scene';
 import Operator from './operator';
 
 export class Floor extends Phaser.GameObjects.Container {
-    private floor: Phaser.GameObjects.Image;
-    private interiorTexture: InteriorTexture;
+    private price: number;
+    private interiorTexture: string;
+    private notBuiltObjects: Phaser.GameObjects.GameObject[] = [];
 
-    constructor(scene: Phaser.Scene, interiorTexture: InteriorTexture) {
-        const floor = new Phaser.GameObjects.Image(
-            scene,
-            0,
-            0,
-            notBuiltTextureName
-        );
-        super(scene, 0, 0, [floor]);
+    constructor(
+        scene: Phaser.Scene,
+        interiorTexture: InteriorTexture,
+        price: number
+    ) {
+        super(scene, 0, 0, null);
 
-        this.floor = floor;
         this.interiorTexture = interiorTexture;
-        this.setSize(floor.width, floor.height);
+        this.price = price;
 
-        this.setInteractive();
-        this.on('pointerdown', () => {
+        // Add objects visible before the floor has been built.
+        const notBuiltFloor = this.scene.add.image(0, 0, notBuiltTextureName);
+        this.setSize(notBuiltFloor.width, notBuiltFloor.height);
+
+        const priceTag = this.scene.add.text(0, 0, this.price.toString(), {
+            color: '#000',
+            fontSize: 30,
+        });
+
+        notBuiltFloor.setInteractive();
+        notBuiltFloor.on('pointerdown', () => {
             this.build();
         });
+
+        this.add([notBuiltFloor, priceTag]);
+        this.notBuiltObjects.push(notBuiltFloor, priceTag);
     }
 
     build() {
-        this.floor.setTexture(floorTextureName);
-
-        const interior = new Phaser.GameObjects.Image(
-            this.scene,
-            // The transform point of a Container is 0x0 and cannot
-            // be changed. Children needs to be positioned positively
-            // or negatively around it.
+        // Objects after the floor has been built.
+        const floor = this.scene.add.image(0, 0, floorTextureName);
+        const interior = this.scene.add.image(
             -this.width / 2 + 93,
             -this.height / 2 + 32,
             this.interiorTexture
@@ -49,6 +59,12 @@ export class Floor extends Phaser.GameObjects.Container {
         );
         operator.setOrigin(0, 1);
 
-        this.add([interior, operator]);
+        this.add([floor, interior, operator]);
+
+        // Remove objects visible before the floor was built.
+        this.notBuiltObjects.forEach((o) => {
+            o.destroy();
+        });
+        this.notBuiltObjects = [];
     }
 }
