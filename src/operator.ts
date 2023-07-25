@@ -11,7 +11,7 @@ export default class Operator extends Phaser.GameObjects.Sprite {
     private walkDirection: number;
     private xStart: number;
 
-    private dt = 0.5;
+    private dt = 1;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y, textureKey, defaultFrame);
