@@ -17,12 +17,12 @@ export class Floor extends Phaser.GameObjects.Container {
     constructor(
         scene: Phaser.Scene,
         interiorTexture: InteriorTexture,
-        price: number
+        floorNumber: number
     ) {
         super(scene, 0, 0, null);
 
         this.interiorTexture = interiorTexture;
-        this.price = price;
+        this.price = 1000 * 2 ** floorNumber;
 
         // Add objects visible before the floor has been built.
         const notBuiltFloor = this.scene.add.image(0, 0, notBuiltTextureName);

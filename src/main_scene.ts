@@ -38,8 +38,8 @@ export default class MainScene extends Phaser.Scene {
         this.cameras.main.setZoom(1);
 
         this.floors = [
-            new Floor(this, InteriorTexture.Slurry, 1000),
-            new Floor(this, InteriorTexture.Coating, 10000),
+            new Floor(this, InteriorTexture.Slurry, 0),
+            new Floor(this, InteriorTexture.Coating, 1),
         ];
 
         this.floors.forEach((floor, i) => {
