@@ -43,9 +43,9 @@ export class Floor extends Phaser.GameObjects.Container {
     }
 
     canBuild() {
+        this.priceTag.setY(this.priceTag.y - this.priceTag.height / 2);
         this.priceTag.setText(`${formatCash(this.price)}\nBuild!`);
         this.priceTag.setStyle({ color: '#000' });
-        this.priceTag.setY(this.priceTag.y - this.priceTag.height / 2);
         this.priceTag.setInteractive();
         this.priceTag.on('pointerdown', () => {
             this.build();
