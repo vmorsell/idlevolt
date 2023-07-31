@@ -10,7 +10,10 @@ import {
 import Operator from './operator';
 
 export class Floor extends Phaser.GameObjects.Container {
-    private price: number;
+    public built = false;
+    public price: number;
+
+    private priceTag: Phaser.GameObjects.Text;
     private interiorTexture: string;
     private notBuiltObjects: Phaser.GameObjects.GameObject[] = [];
 
@@ -22,24 +25,30 @@ export class Floor extends Phaser.GameObjects.Container {
         super(scene, 0, 0, null);
 
         this.interiorTexture = interiorTexture;
-        this.price = 1000 * 2 ** floorNumber;
+        this.price = 1000 + 100 * floorNumber;
 
         // Add objects visible before the floor has been built.
         const notBuiltFloor = this.scene.add.image(0, 0, notBuiltTextureName);
         this.setSize(notBuiltFloor.width, notBuiltFloor.height);
 
-        const priceTag = this.scene.add.text(0, 0, this.price.toString(), {
-            color: '#000',
+        this.priceTag = this.scene.add.text(0, 0, this.price.toString(), {
+            color: '#555',
             fontSize: 30,
+            align: 'center',
         });
 
-        notBuiltFloor.setInteractive();
-        notBuiltFloor.on('pointerdown', () => {
+        this.add([notBuiltFloor, this.priceTag]);
+        this.notBuiltObjects.push(notBuiltFloor, this.priceTag);
+    }
+
+    canBuild() {
+        this.priceTag.setText(`${this.priceTag.text}\nBuild!`);
+        this.priceTag.setStyle({ color: '#000' });
+        this.priceTag.setY(this.priceTag.y - this.priceTag.height / 2);
+        this.priceTag.setInteractive();
+        this.priceTag.on('pointerdown', () => {
             this.build();
         });
-
-        this.add([notBuiltFloor, priceTag]);
-        this.notBuiltObjects.push(notBuiltFloor, priceTag);
     }
 
     build() {
@@ -66,5 +75,6 @@ export class Floor extends Phaser.GameObjects.Container {
             o.destroy();
         });
         this.notBuiltObjects = [];
+        this.built = true;
     }
 }

@@ -14,7 +14,7 @@ export const floorTextureName = 'floor';
 
 export default class MainScene extends Phaser.Scene {
     private floors: Floor[] = [];
-    private cash = 1000;
+    private cash = 0;
     private cashText: Phaser.GameObjects.Text;
 
     constructor() {
@@ -56,6 +56,7 @@ export default class MainScene extends Phaser.Scene {
             fontSize: 20,
             color: '#000',
         });
+        this.setCash(1000);
     }
 
     resize(size: Phaser.Structs.Size): void {
@@ -65,6 +66,16 @@ export default class MainScene extends Phaser.Scene {
     setCash(cash: number) {
         this.cash = cash;
         this.cashText.setText(formatCash(cash));
+
+        for (let i = 0; i < this.floors.length; i++) {
+            if (this.floors[i].built) {
+                continue;
+            }
+            if (this.floors[i].price <= cash) {
+                this.floors[i].canBuild();
+            }
+            break;
+        }
     }
 
     addCash(cash: number) {
