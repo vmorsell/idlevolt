@@ -8,6 +8,7 @@ import {
     InteriorTexture,
 } from './main_scene';
 import Operator from './operator';
+import { formatCash } from './utils';
 
 export class Floor extends Phaser.GameObjects.Container {
     public built = false;
@@ -31,7 +32,7 @@ export class Floor extends Phaser.GameObjects.Container {
         const notBuiltFloor = this.scene.add.image(0, 0, notBuiltTextureName);
         this.setSize(notBuiltFloor.width, notBuiltFloor.height);
 
-        this.priceTag = this.scene.add.text(0, 0, this.price.toString(), {
+        this.priceTag = this.scene.add.text(0, 0, formatCash(this.price), {
             color: '#555',
             fontSize: 30,
             align: 'center',
@@ -42,7 +43,7 @@ export class Floor extends Phaser.GameObjects.Container {
     }
 
     canBuild() {
-        this.priceTag.setText(`${this.priceTag.text}\nBuild!`);
+        this.priceTag.setText(`${formatCash(this.price)}\nBuild!`);
         this.priceTag.setStyle({ color: '#000' });
         this.priceTag.setY(this.priceTag.y - this.priceTag.height / 2);
         this.priceTag.setInteractive();

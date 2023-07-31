@@ -3,6 +3,7 @@
 import * as Phaser from 'phaser';
 
 import { Floor } from './floor';
+import { formatCash } from './utils';
 
 export enum InteriorTexture {
     Slurry = 'slurry',
@@ -81,8 +82,4 @@ export default class MainScene extends Phaser.Scene {
     addCash(cash: number) {
         this.setCash(this.cash + cash);
     }
-}
-
-function formatCash(cash: number): string {
-    return `$${cash}`;
 }
