@@ -1,12 +1,15 @@
 'use strict';
 
 import * as Phaser from 'phaser';
+import MainScene from './main_scene';
 
 const textureKey = 'operator_clean_ppe';
 const defaultFrame = 'front';
 const workingFrame = 'back';
 
 export default class Operator extends Phaser.GameObjects.Sprite {
+    public scene: MainScene;
+
     private isWorking: boolean;
     private walkDirection: number;
     private xStart: number;
@@ -101,5 +104,7 @@ export default class Operator extends Phaser.GameObjects.Sprite {
         this.anims.stop();
         this.walkDirection = 0;
         this.setFrame(defaultFrame);
+
+        this.scene.addCash(100);
     }
 }

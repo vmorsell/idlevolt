@@ -15,6 +15,7 @@ export const floorTextureName = 'floor';
 export default class MainScene extends Phaser.Scene {
     private floors: Floor[] = [];
     private cash = 1000;
+    private cashText: Phaser.GameObjects.Text;
 
     constructor() {
         super('MainScene');
@@ -51,7 +52,7 @@ export default class MainScene extends Phaser.Scene {
             this.add.existing(floor);
         });
 
-        this.add.text(20, 20, `$ ${this.cash.toString()}`, {
+        this.cashText = this.add.text(20, 20, formatCash(this.cash), {
             fontSize: 20,
             color: '#000',
         });
@@ -60,4 +61,17 @@ export default class MainScene extends Phaser.Scene {
     resize(size: Phaser.Structs.Size): void {
         this.cameras.resize(size.width, size.height);
     }
+
+    setCash(cash: number) {
+        this.cash = cash;
+        this.cashText.setText(formatCash(cash));
+    }
+
+    addCash(cash: number) {
+        this.setCash(this.cash + cash);
+    }
+}
+
+function formatCash(cash: number): string {
+    return `$${cash}`;
 }
